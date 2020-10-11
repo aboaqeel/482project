@@ -34,7 +34,9 @@ img {
     .btns {
         max-width: 80%;
         max-height: 90%;
+        background-position-x: 20%;
     }
+   
 
 }
 
@@ -86,9 +88,13 @@ input[type="password"] {
 }
 
 .btn-background {
-    background-image: url('/media/images/google.png');
+    background-image: url('../media/images/google.svg');
+    background-position-x: 5%;
+    background-position-y: center;
     background-repeat: no-repeat;
-    background-size: 3em;
+    background-size: 2em;
+    
+    
 }
 
 div {
