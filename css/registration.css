@@ -86,7 +86,7 @@ input[type="password"] {
 }
 
 .btn-background {
-    background-image: url('/media/images/google.png');
+    background-image: url('./media/images/google.png');
     background-repeat: no-repeat;
     background-size: 3em;
 }
