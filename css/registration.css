@@ -36,7 +36,6 @@ img {
         max-height: 90%;
         background-position-x: 20%;
     }
-   
 
 }
 
@@ -46,7 +45,7 @@ img {
     background-color: hsl(31, 32%, 34%);
     border-radius: 1.25em;
     padding-bottom: 3.90em;
-    padding-top: 5em;
+    padding-top: 1.7em;
 }
 
 .popup-btn {
@@ -93,10 +92,50 @@ input[type="password"] {
     background-position-y: center;
     background-repeat: no-repeat;
     background-size: 2em;
-    
-    
 }
 
 div {
     text-align: center;
+}
+#form{
+    text-align: left; 
+    font-size: 1.3em; 
+    color: white;
+}
+#form-title{
+    text-align: center; 
+    font-size: 2em; 
+    color: white;
+}
+/* italic placeholder */
+ input::-webkit-input-placeholder {/* Chrome/Opera/Safari/Edge */
+    /*styles here*/
+    font-style: italic;
+}
+
+input::-ms-input-placeholder { /* Microsoft Edge */
+   /*styles here*/
+   font-style: italic;
+}
+
+input:-ms-input-placeholder {/* IE 10+ */
+    /*styles here*/
+    font-style: italic;
+}
+
+input::-moz-placeholder {/* Firefox 19+ */
+	opacity: 1; /*Firefox by default has an opacity object that usually is ideal to reset so it matches webkit*/
+    /*styles here*/
+    font-style: italic;
+}
+
+input:-moz-placeholder {/* Firefox 18- */
+	opacity: 1; /*Firefox by default has an opacity object that usually is ideal to reset so it matches webkit*/
+    /*styles here*/
+    font-style: italic;
+}
+
+input::placeholder {
+    /*styles here*/
+    font-style: italic;
 }
