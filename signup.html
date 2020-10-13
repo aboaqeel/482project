@@ -12,13 +12,30 @@
     <link rel="stylesheet" href="./css/registration.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function validatePassword() {
+            var pwd = document.getElementById("password")
+            var pwd2 = document.getElementById("password2")
+            if (pwd.value.length < 8) {
+                pwd.setCustomValidity("Minimum password length is 8 characters.")
+            } else {
+                pwd.setCustomValidity("")
+            }
+            if (pwd != pwd2) {
+                pwd2.setCustomValidity("Passwords do not match.")
+            } else {
+                pwd2.setCustomValidity("")
+            }
+
+        }
+    </script>
 </head>
 
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-4 col-sm-6  popupcontainer">
-                <form action="./signout.html" method="POST" class="popupform" oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
+                <form action="./signout.html" method="POST" class="popupform" oninput="">
                     <div id=form-title class="form-group">
                         Sign up
                     </div>
@@ -40,7 +57,7 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <button type="submit" id="popup-button" class="btns btn btn-outline-dark popup-btn"><span
+                        <button type="submit" id="popup-button" class="btns btn btn-outline-dark popup-btn" onclick="validatePassword()"><span
                                 class="buttons">Sign up</span></button>
                     </div>
                     <div>
