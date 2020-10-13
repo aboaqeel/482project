@@ -23,16 +23,7 @@
                     }
                     return true;
          }
-         function validatePassword() {
-            var pwd = document.getElementById("password")
-            var pwd2 = document.getElementById("password2")
-            if (pwd.value != pwd2.value) {
-                pwd2.setCustomValidity("Passwords do not match.")
-            } else {
-                pwd2.setCustomValidity("")
-            }
-
-         }
+         
    
 </script>
 </head>
@@ -65,7 +56,7 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <button type="submit" id="popup-button" class="btns btn btn-outline-dark popup-btn" onclick="validatePassword()"><span
+                        <button type="submit" id="popup-button" class="btns btn btn-outline-dark popup-btn"><span
                                 class="buttons">Sign up</span></button>
                     </div>
                     <div>
