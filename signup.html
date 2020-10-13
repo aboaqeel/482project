@@ -13,29 +13,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        function validatePassword() {
+        
+        function InvalidMsg(msg) {
+                    if(msg.validity.patternMismatch){
+                        msg.setCustomValidity('Minimum password length is 8 characters.');
+                    }    
+                    else {
+                        msg.setCustomValidity('');
+                    }
+                    return true;
+         }
+         function validatePassword() {
             var pwd = document.getElementById("password")
             var pwd2 = document.getElementById("password2")
-            if (pwd.value.length < 8) {
-                pwd.setCustomValidity("Minimum password length is 8 characters.")
-            } else {
-                pwd.setCustomValidity("")
-            }
             if (pwd.value != pwd2.value) {
                 pwd2.setCustomValidity("Passwords do not match.")
             } else {
                 pwd2.setCustomValidity("")
             }
 
-        }
-    </script>
+         }
+   
+</script>
 </head>
 
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-4 col-sm-6  popupcontainer">
-                <form action="./signout.html" method="POST" class="popupform" oninput="">
+                <form action="./signout.html" method="POST" class="popupform" oninput='password2.setCustomValidity(password2.value != password.value ? "Passwords do not match." : "")'>
                     <div id=form-title class="form-group">
                         Sign up
                     </div>
@@ -49,11 +55,13 @@
                     </div>
                     <div id=form class="form-group">
                         &nbsp;Password:
-                        <input type="password" placeholder=" your password" id="password" name="password1" class="form-control" required>
+                        <input type="password" pattern=".{8,}" placeholder=" your password" id="password" name="password1" class="form-control" 
+                        oninvalid="InvalidMsg(this);" name="email" oninput="InvalidMsg(this);" required>
                     </div>
                     <div id=form class="form-group">
                         &nbsp;Confirm Password:
-                        <input type="password" placeholder=" Confirm Password" id="password2" name="password2" class="form-control" required>
+                        <input type="password" pattern=".{8,}" placeholder=" Confirm Password" id="password2" name="password2" class="form-control"
+                        oninvalid="InvalidMsg(this);" name="email" oninput="InvalidMsg(this);" required>
                     </div>
                     <br>
                     <div class="form-group">
