@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./js/sketch.js"></script>
+    <style>
+        html,
+        body {
+            background-color: hsla(20, 90, 0, 100);
+            width: 100vw;
+            height: 100vh;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+        
+        .container-fluid {
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+        
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .p5Canvas {
+            width: 0px;
+            height: 0px;
+            overflow: hidden;
+        }
+        
+        .board {
+            background-color: #8f7962;
+            flex: 0;
+            /* left: 35%; */
+            min-width: 25vh;
+            min-height: 25vh;
+            padding: 0 0;
+            margin: 0.5% 0.5%;
+            border: 0.1em solid black;
+            position: relative;
+        }
+        
+        .piece-place {
+            background-color: #8f7962;
+            flex: 0;
+            min-width: 25vh;
+            min-height: 25vh;
+            border: 0.1em solid black;
+            padding: 0 0;
+            margin: 0.5% 0.5%;
+            display: relative;
+        }
+        
+        .piece {
+            z-index: 1;
+        }
+        
+        img {
+            position: absolute;
+            width: 90%;
+            top: 5%;
+            left: 5%;
+            filter: drop-shadow(0 0 0.5em #40362c);
+        }
+        
+        .icon {
+            position: relative;
+            width: 5vw;
+            filter: none;
+            left: 2.5vw;
+        }
+        
+        span {
+            position: relative;
+            font-size: 2.5em;
+            display: inline-block;
+        }
+        
+        .selected {
+            border: 0.5em solid #40362c;
+        }
+        
+        li {
+            display: inline;
+            padding-right: 5%;
+            font-size: 1.3em;
+        }
+        
+        li a {
+            color: black;
+        }
+        
+        li a:hover {
+            text-decoration: none;
+            color: gray;
+        }
+        
+        .timer {
+            padding-right: 5%;
+        }
+        
+        #challenge {
+            margin-left: 25%;
+        }
+        
+        @media (max-aspect-ratio: 2/4) {
+            .board {
+                min-width: 41vw;
+                min-height: 19vh;
+            }
+            .piece-place {
+                min-width: 35vw;
+                min-height: 16vh;
+            }
+            span {
+                font-size: 1.75em;
+                left: 0%;
+                margin-bottom: 5%;
+            }
+            .icon {
+                width: 10%;
+                left: 5%;
+            }
+        }
+        
+        @media (max-aspect-ratio: 10/9) {
+            .board {
+                min-width: 28vw;
+                min-height: 28vw;
+            }
+            .piece-place {
+                min-width: 20vw;
+                min-height: 20vw;
+            }
+            span {
+                font-size: 2em;
+                left: 0;
+                margin-bottom: -5%;
+            }
+            .icon {
+                width: 8vw;
+                left: 7vw;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div class="row justify-content-center">
+
+            <li><a href="./index.html">Main menu</a></li>
+            <li><a href="#Changelevel">Change level</a></li>
+            <li><a href="#Reset">Reset</a></li>
+
+            <div class="timer">
+                <span id="minutes">__</span>
+                <span id="colon">:</span>
+                <span id="seconds">__</span>
+                <script type="text/javascript">
+                    var minutesLabel = document.getElementById("minutes");
+                    var secondsLabel = document.getElementById("seconds");
+                    var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+                    setInterval(setTime, 1000);
+
+                    function setTime() {
+                        ++totalSeconds;
+                        secondsLabel.innerHTML = pad(totalSeconds % 60);
+                        minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                        localStorage.setItem("time", totalSeconds);
+                    }
+
+                    function pad(val) {
+                        var valString = val + "";
+                        if (valString.length < 2) {
+                            return "0" + valString;
+                        } else {
+                            return valString;
+                        }
+                    }
+                </script>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col" id="challenge">
+
+                <span>Challenge:</span>
+                <img class="icon" src="./media/images/camel.svg">
+                <img class="icon" src="./media/images/camel.svg">
+                <img class="icon" src="./media/images/camel.svg">
+                <img class="icon" src="./media/images/camel.svg">
+                <img class="icon" src="./media/images/camel.svg">
+                <div class="col">
+                    <span id="win"></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="board col" id="d1">
+                <img src="./media/images/UpperLeft.svg">
+            </div>
+            <div class="board col" id="d2">
+                <img src="./media/images/UpperRight.svg">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="board col" id="d3">
+                <img src="./media/images/BottomLeft.svg">
+            </div>
+            <div class="board col" id="d4">
+                <img src="./media/images/BottomRight.svg">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="piece-place col">
+                <img class="piece" src="./media/images/Piece1.svg">
+            </div>
+            <div class="piece-place col">
+                <img class="piece" src="./media/images/Piece2.svg">
+
+            </div>
+            <div class="piece-place col">
+                <img class="piece" src="./media/images/Piece3.svg">
+
+            </div>
+            <div class="piece-place col">
+                <img class="piece" src="./media/images/Piece4.svg">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
