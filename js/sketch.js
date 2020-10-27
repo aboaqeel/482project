@@ -1,9 +1,3 @@
-pos = [0, 3, 2, 1]
-ang = [1, 2, 1, 1]
-challenge = ["camel", "camel", "camel", "camel", "camel"];
-
-
-
 let solved = false;
 let pieces = []
 var activePiece;

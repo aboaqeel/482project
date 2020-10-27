@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+        background-color: #d8b38b;
+        color: #fefae0;
+        font-size: 1.3em;
+    }
+    
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .flex-item {
+        margin: min(1vh, 1vw);
+        width: min(20vh, 30vw);
+        line-height: min(20vh, 30vw);
+        border-radius: 5%;
+        background-color: #9b7564;
+    }
+    
+    .unlocked {
+        background-color: hsl(19, 22%, 30%);
+    }
+    
+    a,
+    a:hover,
+    a:focus,
+    a:active {
+        color: inherit;
+        text-decoration: none;
+    }
+</style>
+<script>
+    var Level = 10;
+    $(document).ready(function() {
+        $(".flex-item").each(function(i, e) {
+            $(e).addClass("unlocked").wrap("<a href=\"./level" + (++i) + ".html\"></a>");
+            return i < Level;
+        });
+    });
+</script>
+
+<body>
+    <div class="container p-0" style="max-width: min(100%,75vh);text-align: center;">
+        <div class="header">
+            <h3 style="line-height:10vh;">levels</h3>
+        </div>
+        <div class="flex-container">
+            <div class=" flex-item">
+                1
+            </div>
+            <div class="flex-item">
+                2
+            </div>
+            <div class="flex-item">
+                3
+            </div>
+            <div class="flex-item">
+                4
+            </div>
+            <div class="flex-item">
+                5
+            </div>
+            <div class="flex-item">
+                6
+            </div>
+            <div class="flex-item">
+                7
+            </div>
+            <div class="flex-item">
+                8
+            </div>
+            <div class="flex-item">
+                9
+            </div>
+            <div class="flex-item">
+                10
+            </div>
+            <div class="flex-item">
+                11
+            </div>
+            <div class="flex-item">
+                12
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

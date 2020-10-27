@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>
+        let pos = [0, 3, 2, 1];
+        let ang = [1, 2, 1, 1];
+        let challenge = ["camel", "camel", "camel", "camel", "camel"];
+    </script>
+    <script src="./js/sketch.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #d8b38b;
+            color: white;
+        }
+        
+        .container {
+            width: min(100%, 61vh);
+            height: 100%;
+            padding: 0px;
+        }
+        
+        .board {
+            position: relative;
+            width: 50%;
+            padding: 5px;
+            /* background-color: #8F7962; */
+        }
+        
+        .piece {
+            position: absolute;
+            filter: drop-shadow(0 0 0.1em black);
+            z-index: 1;
+            width: 100%;
+            padding: 5px;
+            top: 0;
+            left: 0;
+        }
+        
+        .active {
+            filter: drop-shadow(0 0 2em #1d1914);
+        }
+        
+        .piece-place {
+            background: #8f7962;
+            position: relative;
+            width: 25%;
+            padding-top: 25%;
+            border: solid #f2d0a7 1px;
+            border-radius: 1.5em;
+            margin-top: 2.5%;
+        }
+        
+        .icon {
+            width: 15%;
+        }
+        
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        svg {
+            height: 4vh;
+        }
+        
+        .nav-item {
+            padding: .5rem 1rem;
+        }
+        
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            transition: 0.5s;
+        }
+        
+        #nav {
+            margin-bottom: 2.5%;
+            z-index: 4;
+            position: relative;
+            background-color: #8F7962;
+        }
+        
+        #win {
+            display: none;
+            position: fixed;
+            text-align: center;
+            width: min(100%, 61vh);
+            background-color: #8F7962;
+            z-index: 3;
+            border-radius: 2em;
+        }
+        
+        #boardContainer {
+            background-color: #8F7962;
+            border-radius: 2.5%;
+        }
+        
+        .btns {
+            background-color: #9B7564;
+            margin-bottom: 2%;
+            /* margin-right: 1%;
+margin-left: 1%; */
+            font-size: 1.3em;
+            color: white;
+            width: 60%;
+        }
+        
+        .btns:hover {
+            background-color: #403121
+        }
+        
+        .buttons {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="nav" class="d-flex  justify-content-around align-items-center">
+            <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Home"><a href="./index.html"><svg
+                viewBox="0 0 16 16" class="bi bi-house-door-fill" fill="#F2D0A7"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z" />
+                <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+            </svg></a></div>
+            <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="reset"><a href="#" onclick="reset()"><svg viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="#F2D0A7"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
+                <path fill-rule="evenodd"
+                    d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
+            </svg></a></div>
+            <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Change Level"><a href="./levels.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1892.57">
+                <defs>
+                    <style>
+                        .cls-1 {
+                            fill: #F2D0A7;
+                        }
+
+                        .cls-2 {
+                            fill: #000;
+                        }
+                    </style>
+                </defs>
+                <g id="Layer_2" data-name="Layer 2">
+                    <g id="Layer_1-2" data-name="Layer 1">
+                        <rect class="cls-1" width="793.99" height="793.99" rx="20" />
+                        <path class="cls-2"
+                            d="M391,314.24h-.6L356.3,332.63l-5.12-20.2L394,289.52h22.6v196H391Z" />
+                        <rect class="cls-1" y="1098.58" width="793.99" height="793.99" rx="20" />
+                        <path class="cls-2"
+                            d="M339.72,1553.6c7.54,4.82,25,12.36,43.41,12.36,34.07,0,44.62-21.71,44.32-38-.31-27.43-25-39.19-50.65-39.19H362v-19.89H376.8c19.3,0,43.71-10,43.71-33.16,0-15.68-9.94-29.54-34.36-29.54-15.68,0-30.75,6.93-39.19,13L340,1399.86c10.25-7.54,30.15-15.08,51.25-15.08,38.59,0,56.07,22.91,56.07,46.73,0,20.2-12.06,37.38-36.17,46.12v.6c24.11,4.83,43.71,22.91,43.71,50.35,0,31.35-24.42,58.78-71.45,58.78-22,0-41.3-6.93-50.94-13.26Z" />
+                        <rect class="cls-1" x="1206.01" y="1098.58" width="793.99" height="793.99" rx="20" />
+                        <path class="cls-2"
+                            d="M1621.4,1584v-53.35h-91V1513.2l87.42-125.1h28.64v121.79h27.43v20.8h-27.43V1584Zm0-74.15v-65.42q0-15.37.91-30.75h-.91c-6,11.46-10.85,19.9-16.28,28.94l-47.93,66.62v.61Z" />
+                        <rect class="cls-1" x="1206.01" width="793.99" height="793.99" rx="20" />
+                        <path class="cls-2"
+                            d="M1539.4,485.47V469.19l20.81-20.2c50-47.63,72.64-72.95,73-102.49,0-19.9-9.65-38.29-38.89-38.29-17.79,0-32.56,9-41.6,16.58l-8.44-18.69a86,86,0,0,1,55.47-19.9c42.2,0,60,28.94,60,57,0,36.17-26.23,65.42-67.53,105.21l-15.68,14.47v.6h88v22Z" />
+                    </g>
+                </g>
+            </svg>
+            <path fill-rule="evenodd"
+                d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+            </svg></a></div>
+            <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Timer" style="min-width:20%">
+                <span id="minutes">--</span>
+                <span id="colon">:</span>
+                <span id="seconds">--</span>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
+            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+            setInterval(setTime, 1000);
+
+            function setTime() {
+                ++totalSeconds;
+                secondsLabel.innerHTML = pad(totalSeconds % 60);
+                minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                localStorage.setItem("time", totalSeconds);
+            }
+
+            function pad(val) {
+                var valString = val + "";
+                if (valString.length < 2) {
+                    return "0" + valString;
+                } else {
+                    return valString;
+                }
+            }
+        </script>
+
+
+        <h5 style="text-align: center;">Challenge 1
+        </h5>
+        <div class="overlay"></div>
+        <div id="win" style="padding-bottom: 10%;">
+
+            <h3 style=" margin: 10%; font-weight:  700;">Congratulations!</h3>
+            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in<span id="time"> x </span>seconds!
+            </h5>
+            <h5 style="margin-bottom: 6%; font-weight: 600;">Your score is<span id="score"> y </span></h5>
+
+            <div class="btn-group " style="display: block;">
+                <a href="./index.html"><button type="button" class="btns btn btn-outline-dark "><span>Main Menu</span></button></a>
+                <a href="./level1.html">
+                    <a id="next" href="./level2.html"><button type="button" class="btns btn btn-outline-dark "><span>Next
+                        Level</span></button></a>
+
+                    <!-- Force next columns to break to new line -->
+
+
+                    <a href="./level1.html"><button type="button" class="btns btn btn-outline-dark "><span>retry</span></button></a>
+                    <a href="#"><button type="button" class="btns btn btn-outline-dark "><span>share
+                        it!</span></button></a>
+            </div>
+        </div>
+        <div class="d-flex icons" style="margin-bottom: 2.5%;height: 6vh;justify-content: space-around;">
+            <script type="text/javascript">
+                let s = JSON.stringify(challenge).replaceAll("&#34;", "\"");
+                let icons = JSON.parse(s);
+                icons.forEach(icon => {
+                    $(".icons").append("<img class=\"icon\" src=\"./media/images/" + icon + ".svg\">");
+                });
+            </script>
+        </div>
+        <div id="boardContainer" class="flex-container">
+            <div class="board" id="0"><img src="./media/images/UpperLeft.svg">
+            </div>
+            <div class="board" id="1"><img src="./media/images/UpperRight.svg">
+            </div>
+            <div class="board" id="2"><img src="./media/images/BottomLeft.svg"></div>
+            <div class="board" id="3"><img src="./media/images/BottomRight.svg"></div>
+        </div>
+        <div class="flex-container">
+            <div class="piece-place"><img id="0" class="piece" src="./media/images/Piece1.svg"></div>
+            <div class="piece-place"><img id="1" class="piece" src="./media/images/Piece2.svg"></div>
+            <div class="piece-place"><img id="2" class="piece" src="./media/images/Piece3.svg"></div>
+            <div class="piece-place"><img id="3" class="piece" src="./media/images/Piece4.svg"></div>
+        </div>
+
+    </div>
+</body>
+
+</html>
