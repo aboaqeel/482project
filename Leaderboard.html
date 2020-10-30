@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Leaderboard</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/grid/">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<meta name="theme-color" content="#563d7c">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        height: 100%;
+        background-color: #d8b38b;
+        color: #fefae0;
+        font-size: 1.3em;
+    }
+    .col-2{
+        text-align: center;
+    }
+    .col-4{
+        text-align: center;
+    }
+
+    #head{
+        text-align: center;
+        font-size: 1.35em;
+        font-weight: 500;
+    }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href=".\css\grid.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function getRandomString(length) {
+            var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var result = '';
+            for ( var i = 0; i < length; i++ ) {
+                result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+            }
+            return result;
+        }
+        $(document).ready(function(){
+            let score = 5000 ;
+            let name = getRandomString(5) ;
+            for(let i = 1; i<=50; i++){
+                let t = '<div class="col-2 themed-grid-col">'+i+'</div>'+'<div class="col-6 themed-grid-col">'+name+'</div>'+'<div class="col-4 themed-grid-col">'+score+'</div>' ;
+                $("#mydiv").append(t);
+                score -= 93 ;
+                name = getRandomString(7) ;
+            }
+        });
+    </script>
+  </head>
+  <body class="py-4">
+    <div class="container">
+        <div class="col-md-4">
+            <a href="./index.html"><button type="button"
+                    class="btns btn btn-outline-dark btn-block"><span>Main menu</span></button></a>
+        </div>
+        <h3 style="line-height:10vh; text-align: center;">Leaderboard</h3>
+  <div class="row mb-3" id="mydiv">
+    <div class="col-2 themed-grid-col" id="head">#</div>
+    <div class="col-6 themed-grid-col" id="head">Name</div>
+    <div class="col-4 themed-grid-col" id="head">Score</div>
+
+  </div>
+</div>
+</body>
+</html>

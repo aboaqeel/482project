@@ -1,0 +1,29 @@
+.themed-grid-col {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #9b7564;
+    border: 1px solid rgba(86, 61, 124, .2);
+  }
+  
+  .themed-container {
+    padding: 15px;
+    margin-bottom: 30px;
+    background-color: rgba(0, 123, 255, .15);
+    border: 1px solid rgba(0, 123, 255, .2);
+  }
+
+.btns {
+    background-color: #9B7564;
+    width: 40%;
+}
+.btns:hover {
+    background-color: #403121
+}
+span {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: white;
+}
+a:hover {
+    text-decoration: none;
+}
