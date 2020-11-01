@@ -20,6 +20,7 @@
         let challenge = ["tent", "tent", "wolf", "wolf"];
     </script>
     <script src="./js/sketch.js"></script>
+    <script>var levelWight=2000;</script>
     <style>
         html,
         body {
@@ -200,14 +201,15 @@ margin-left: 1%; */
         <script type="text/javascript">
             var minutesLabel = document.getElementById("minutes");
             var secondsLabel = document.getElementById("seconds");
-            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+            // var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+            var totalSeconds = 0;
             setInterval(setTime, 1000);
 
             function setTime() {
                 ++totalSeconds;
                 secondsLabel.innerHTML = pad(totalSeconds % 60);
                 minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-                localStorage.setItem("time", totalSeconds);
+//                localStorage.setItem("time", totalSeconds);
             }
 
             function pad(val) {
