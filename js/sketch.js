@@ -67,6 +67,13 @@ function checkSolved() {
     if (flag) {
         $("#win").css("display", "block");
         $(".overlay").css("width", "100%");
+        win();
         /* turn the timer off */
     }
+}
+function win() {
+    pause();
+    $("#winingTime").text(totalSeconds);
+    $("#score").text(Number((levelWight/totalSeconds).toFixed(2)));
+    
 }
