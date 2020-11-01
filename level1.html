@@ -24,7 +24,17 @@
         let challenge = ["camel", "camel", "camel", "camel", "camel"];
     </script>
     <script src="./js/sketch.js"></script>
-    <script>var levelWight=1000;</script>
+    <script>var levelWight = 1000;</script>
+    <script>
+        window.addEventListener('beforeunload', function () {
+            // Cancel the event
+            localStorage.clear();
+            e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+            // Chrome requires returnValue to be set
+            e.returnValue = '';
+        });
+    </script>
+    
     <style>
         html,
         body {
@@ -147,7 +157,7 @@ margin-left: 1%; */
     </style>
 </head>
 
-<body>
+<body onload="checkReload()">
     <div class="container">
         <div id="nav" class="d-flex  justify-content-around align-items-center">
             <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Home"><a href="./index.html"><svg
@@ -207,41 +217,40 @@ margin-left: 1%; */
 
         <script type="text/javascript">
             var paused = false;
-                var minutesLabel = document.getElementById("minutes");
-                var secondsLabel = document.getElementById("seconds");
-//                var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
-                var totalSeconds = 0;
-                var timer = setInterval(setTime, 1000);
-                function setTime() {
-                    ++totalSeconds;
-                    secondsLabel.innerHTML = pad(totalSeconds % 60);
-                    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-//                    localStorage.setItem("time", totalSeconds);
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
+            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+            var timer = setInterval(setTime, 1000);
+            function setTime() {
+                ++totalSeconds;
+                secondsLabel.innerHTML = pad(totalSeconds % 60);
+                minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                localStorage.setItem("time", totalSeconds);
+            }
+            function pad(val) {
+                var valString = val + "";
+                if (valString.length < 2) {
+                    return "0" + valString;
+                } else {
+                    return valString;
                 }
-                function pad(val) {
-                    var valString = val + "";
-                    if (valString.length < 2) {
-                        return "0" + valString;
-                    } else {
-                        return valString;
-                    }
+            }
+            function pause() {
+                if (paused) {
+                    timer = setInterval(setTime, 1000);
+                    $(".timer").attr("src", "./icons/pause.svg");
+                    $(".piece").css("display", "block")
+                    $(".board").css("display", "block")
+                    $("#pause-nav").tooltip('hide').attr('data-original-title', 'Pause').tooltip('show');
+                } else {
+                    $(".piece").css("display", "none")
+                    $(".board").css("display", "none")
+                    clearInterval(timer);
+                    $(".timer").attr("src", "./icons/play.svg");
+                    $("#pause-nav").tooltip('hide').attr('data-original-title', 'Resume').tooltip('show');
                 }
-                function pause() {
-                    if (paused) {
-                        timer = setInterval(setTime, 1000);
-                        $(".timer").attr("src", "./icons/pause.svg");
-                        $(".piece").css("display", "block")
-                        $(".board").css("display", "block")
-                        $("#pause-nav").tooltip('hide').attr('data-original-title', 'Pause').tooltip('show');
-                    } else {
-                        $(".piece").css("display", "none")
-                        $(".board").css("display", "none")
-                        clearInterval(timer);
-                        $(".timer").attr("src", "./icons/play.svg");
-                        $("#pause-nav").tooltip('hide').attr('data-original-title', 'Resume').tooltip('show');
-                    }
-                    paused = !paused;
-                }
+                paused = !paused;
+            }
         </script>
 
 
@@ -251,34 +260,36 @@ margin-left: 1%; */
         <div id="win" style="padding-bottom: 10%;">
 
             <h3 style=" margin: 10%; font-weight:  700;">Congratulations!</h3>
-            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in <span id="winingTime"></span> seconds!
+            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in <span id="winingTime"></span>
+                <!-- minuets! -->
             </h5>
             <h5 style="margin-bottom: 6%; font-weight: 600;">Your score is <span id="score"></script> </span></h5>
-            
-                <div class="btn-group " style="display: block;">
-                    <a href="./index.html"><button type="button" class="btns btn btn-outline-dark "><span>Main
-                                Menu</span></button></a>
-                    <a href="./level1.html">
-                        <a id="next" href="./level2.html"><button type="button"
-                                class="btns btn btn-outline-dark "><span>Next
-                                    Level</span></button></a>
 
-                      
+            <div class="btn-group " style="display: block;">
+                <a href="./index.html"><button type="button" class="btns btn btn-outline-dark "><span>Main
+                            Menu</span></button></a>
+                <a href="./level1.html">
+                    <a id="next" href="./level2.html"><button type="button"
+                            class="btns btn btn-outline-dark "><span>Next
+                                Level</span></button></a>
 
 
-                        <a href="./level1.html"><button type="button"
-                                class="btns btn btn-outline-dark "><span>retry</span></button></a> <br>
 
-                                <button type="button" class="btns btn btn-outline-dark"><img class="ic" src="./media/images/twitter.svg" /> share it on twitter </button>
-                </div>
-                
-                  
-                    <!-- <button type="button" class="btns btn btn-outline-dark">share it on <img class="ic"
+
+                    <a href="./level1.html"><button type="button"
+                            class="btns btn btn-outline-dark "><span>retry</span></button></a> <br>
+
+                    <button type="button" class="btns btn btn-outline-dark"><img class="ic"
+                            src="./media/images/twitter.svg" /> share it on twitter </button>
+            </div>
+
+
+            <!-- <button type="button" class="btns btn btn-outline-dark">share it on <img class="ic"
                             src="./media/images/facebook.svg" /></button>
                     <button type="button" class="btns btn btn-outline-dark">share it on <img class="ic"
                             src="./media/images/whatsapp.svg" /></button></button> -->
-                
-            
+
+
         </div>
         <div class="d-flex icons" style="margin-bottom: 2.5%;height: 6vh;justify-content: space-around;">
             <script type="text/javascript">
@@ -305,9 +316,7 @@ margin-left: 1%; */
         </div>
 
     </div>
-    <script>
-
-    </script>
+    
 </body>
 
 </html>

@@ -201,15 +201,14 @@ margin-left: 1%; */
         <script type="text/javascript">
             var minutesLabel = document.getElementById("minutes");
             var secondsLabel = document.getElementById("seconds");
-            // var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
-            var totalSeconds = 0;
+            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
             setInterval(setTime, 1000);
 
             function setTime() {
                 ++totalSeconds;
                 secondsLabel.innerHTML = pad(totalSeconds % 60);
                 minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-                // localStorage.setItem("time", totalSeconds);
+                localStorage.setItem("time", totalSeconds);
             }
 
             function pad(val) {
@@ -229,7 +228,7 @@ margin-left: 1%; */
         <div id="win" style="padding-bottom: 10%;">
 
             <h3 style=" margin: 10%; font-weight:  700;">Congratulations!</h3>
-            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in<span id="time"> x </span>seconds!
+            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in<span id="time"> x </span>minuets!
             </h5>
             <h5 style="margin-bottom: 6%; font-weight: 600;">Your score is<span id="score"> y </span></h5>
 
