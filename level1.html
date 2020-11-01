@@ -24,7 +24,6 @@
         let challenge = ["camel", "camel", "camel", "camel", "camel"];
     </script>
     <script src="./js/sketch.js"></script>
-    <script>var levelWight=1000;</script>
     <style>
         html,
         body {
@@ -206,53 +205,38 @@ margin-left: 1%; */
         </div>
 
         <script type="text/javascript">
-            var paused = false;
-                var minutesLabel = document.getElementById("minutes");
-                var secondsLabel = document.getElementById("seconds");
-                var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
-                var timer = setInterval(setTime, 1000);
-                function setTime() {
-                    ++totalSeconds;
-                    secondsLabel.innerHTML = pad(totalSeconds % 60);
-                    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-                    localStorage.setItem("time", totalSeconds);
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
+            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+            setInterval(setTime, 1000);
+
+            function setTime() {
+                ++totalSeconds;
+                secondsLabel.innerHTML = pad(totalSeconds % 60);
+                minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                localStorage.setItem("time", totalSeconds);
+            }
+
+            function pad(val) {
+                var valString = val + "";
+                if (valString.length < 2) {
+                    return "0" + valString;
+                } else {
+                    return valString;
                 }
-                function pad(val) {
-                    var valString = val + "";
-                    if (valString.length < 2) {
-                        return "0" + valString;
-                    } else {
-                        return valString;
-                    }
-                }
-                function pause() {
-                    if (paused) {
-                        timer = setInterval(setTime, 1000);
-                        $(".timer").attr("src", "./icons/pause.svg");
-                        $(".piece").css("display", "block")
-                        $(".board").css("display", "block")
-                        $("#pause-nav").tooltip('hide').attr('data-original-title', 'Pause').tooltip('show');
-                    } else {
-                        $(".piece").css("display", "none")
-                        $(".board").css("display", "none")
-                        clearInterval(timer);
-                        $(".timer").attr("src", "./icons/play.svg");
-                        $("#pause-nav").tooltip('hide').attr('data-original-title', 'Resume').tooltip('show');
-                    }
-                    paused = !paused;
-                }
+            }
         </script>
 
 
         <h5 style="text-align: center;">Challenge 1
         </h5>
         <div class="overlay"></div>
-        <div id="win" style="padding-bottom: 10%;">
+        <div id="win" style="padding-bottom: 10%;">//
 
             <h3 style=" margin: 10%; font-weight:  700;">Congratulations!</h3>
-            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in <span id="winingTime"></span> seconds!
+            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in<span id="time"> x </span>seconds!
             </h5>
-            <h5 style="margin-bottom: 6%; font-weight: 600;">Your score is <span id="score"></script> </span></h5>
+            <h5 style="margin-bottom: 6%; font-weight: 600;">Your score is<span id="score"> y </span></h5>
             
                 <div class="btn-group " style="display: block;">
                     <a href="./index.html"><button type="button" class="btns btn btn-outline-dark "><span>Main
