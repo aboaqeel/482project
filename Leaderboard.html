@@ -9,7 +9,8 @@
     <title>Leaderboard</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/grid/">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <meta name="theme-color" content="#563d7c">
@@ -47,6 +48,21 @@
         font-size: 1.35em;
         font-weight: 500;
     }
+    .btn:hover{
+     background-color: #403121; 
+     
+    }
+    .btn{
+     background-color: #9B7564;
+     border: none;
+    }
+    .tabl{
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    tr{
+      font-weight: 300;
+    }
+    
     </style>
     <!-- Custom styles for this template -->
     <link href=".\css\grid.css" rel="stylesheet">
@@ -65,25 +81,53 @@
             let score = 5000 ;
             let name = getRandomString(5) ;
             for(let i = 1; i<=50; i++){
-                let t = '<div class="col-2 themed-grid-col">'+i+'</div>'+'<div class="col-6 themed-grid-col">'+name+'</div>'+'<div class="col-4 themed-grid-col">'+score+'</div>' ;
-                $("#mydiv").append(t);
+                let t='<tr>'+'<td>'+i+'</td>'+'<td>'+name+'</td>'+'<td>'+score+'</td>'+'</tr>'
+                $("#here").append(t);
                 score -= 93 ;
                 name = getRandomString(7) ;
+             
+                // let t = '<div class="col-2 themed-grid-col">'+i+'</div>'+'<div class="col-6 themed-grid-col">'+name+'</div>'+'<div class="col-4 themed-grid-col">'+score+'</div>' ;
+                
             }
         });
     </script>
   </head>
-  <body class="py-4">
-    <div class="container">
-        <div class="col-md-4">
-            <a href="./index.html"><button type="button"
-                    class="btns btn btn-outline-dark btn-block"><span>Main menu</span></button></a>
-        </div>
-        <h3 style="line-height:10vh; text-align: center;">Leaderboard</h3>
+  <body >
+    <div class="container" style="padding-left: 5%; padding-right: 5%; margin-top: 2%;">
+      <!-- <ul class="pager">
+        <li class="previous"><a href="./index.html">Main menu</a></li>
+      </ul> -->
+       <div style="margin: 2%;">
+        <a href="./index.html"><button type="button"
+          class="btn btn-primary btn-lg btn-block tabl " ><span>Main menu</span></button></a>
+       </div>
+            
+       
+        <!-- <h3 style="line-height:10vh; text-align: center;">Leaderboard</h3> -->
+<!--         
   <div class="row mb-3" id="mydiv">
     <div class="col-2 themed-grid-col" id="head">#</div>
-    <div class="col-6 themed-grid-col" id="head">Name</div>
-    <div class="col-4 themed-grid-col" id="head">Score</div>
+    <div class="col-6 themed-grid-col" id="head">Username</div>
+    <div class="col-4 themed-grid-col" id="head">Score</div> -->
+    <div class="table-responsive tabl table-hover" style="border: none;">          
+      <table class="table" style="background-color: #9B7564; color: white; font-size: 2em; border: none; text-align: center;">
+        <thead>
+          <tr >
+            <th colspan="3" style="text-align: center; font-weight: 700; letter-spacing:0.05em; height: 3em; vertical-align:middle">Leaderboard</th>
+          </tr>
+          
+          <tr>
+            <th style="font-weight: 500;">#</th>
+            <th style="font-weight: 500;">Username</th>
+            <th style="font-weight: 500;">Score</th>
+          </tr>
+        </thead>
+        <tbody id="here">
+          
+        </tbody>
+      </table>
+      </div>
+    </div>
 
   </div>
 </div>
