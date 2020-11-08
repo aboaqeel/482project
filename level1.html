@@ -25,16 +25,6 @@
     </script>
     <script src="./js/sketch.js"></script>
     <script>var levelWight = 1000;</script>
-    <script>
-        window.addEventListener('beforeunload', function () {
-            // Cancel the event
-            localStorage.clear();
-            e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-            // Chrome requires returnValue to be set
-            e.returnValue = '';
-        });
-    </script>
-    
     <style>
         html,
         body {
@@ -219,13 +209,14 @@ margin-left: 1%; */
             var paused = false;
             var minutesLabel = document.getElementById("minutes");
             var secondsLabel = document.getElementById("seconds");
-            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+//            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+            var totalSeconds = 0 ;
             var timer = setInterval(setTime, 1000);
             function setTime() {
                 ++totalSeconds;
                 secondsLabel.innerHTML = pad(totalSeconds % 60);
                 minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-                localStorage.setItem("time", totalSeconds);
+//                localStorage.setItem("time", totalSeconds);
             }
             function pad(val) {
                 var valString = val + "";
@@ -273,23 +264,26 @@ margin-left: 1%; */
                             class="btns btn btn-outline-dark "><span>Next
                                 Level</span></button></a>
 
-
-
-
                     <a href="./level1.html"><button type="button"
                             class="btns btn btn-outline-dark "><span>retry</span></button></a> <br>
 
-                    <button type="button" class="btns btn btn-outline-dark"><img class="ic"
-                            src="./media/images/twitter.svg" /> share it on twitter </button>
+                            <script>
+                                // Opens a pop-up with twitter sharing dialog
+                                function tweet_score() {
+                                    var shareURL = "http://twitter.com/share?"; //url base
+                                    //params
+                                    var params = {
+                                        url: "http://hideandreveal-env.eba-rvpxu2dp.us-east-1.elasticbeanstalk.com/",
+                                        text: "I just scored a " + $('#score').text() + " in " + $("#winingTime").text() + " on hideandreveal game!",
+                                        hashtags: "hideandreveal"
+                                    }
+                                    for (var prop in params) shareURL += '&' + prop + '=' + encodeURIComponent(params[prop]);
+                                    window.open(shareURL, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+                                }
+                            </script>
+
+                    <button onclick="tweet_score()" type="button" id="twitter-share" class="btns btn btn-outline-dark "><span>share it on twitter!</span></button>
             </div>
-
-
-            <!-- <button type="button" class="btns btn btn-outline-dark">share it on <img class="ic"
-                            src="./media/images/facebook.svg" /></button>
-                    <button type="button" class="btns btn btn-outline-dark">share it on <img class="ic"
-                            src="./media/images/whatsapp.svg" /></button></button> -->
-
-
         </div>
         <div class="d-flex icons" style="margin-bottom: 2.5%;height: 6vh;justify-content: space-around;">
             <script type="text/javascript">

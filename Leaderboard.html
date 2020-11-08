@@ -79,36 +79,24 @@
         }
         $(document).ready(function(){
             let score = 5000 ;
-            let name = getRandomString(5) ;
+            let name = getRandomString(7) ;
             for(let i = 1; i<=50; i++){
                 let t='<tr>'+'<td>'+i+'</td>'+'<td>'+name+'</td>'+'<td>'+score+'</td>'+'</tr>'
                 $("#here").append(t);
                 score -= 93 ;
-                name = getRandomString(7) ;
-             
-                // let t = '<div class="col-2 themed-grid-col">'+i+'</div>'+'<div class="col-6 themed-grid-col">'+name+'</div>'+'<div class="col-4 themed-grid-col">'+score+'</div>' ;
-                
+                name = getRandomString(7) ;   
             }
         });
     </script>
   </head>
   <body >
     <div class="container" style="padding-left: 5%; padding-right: 5%; margin-top: 2%;">
-      <!-- <ul class="pager">
-        <li class="previous"><a href="./index.html">Main menu</a></li>
-      </ul> -->
+
        <div style="margin: 2%;">
         <a href="./index.html"><button type="button"
           class="btn btn-primary btn-lg btn-block tabl " ><span>Main menu</span></button></a>
        </div>
-            
-       
-        <!-- <h3 style="line-height:10vh; text-align: center;">Leaderboard</h3> -->
-<!--         
-  <div class="row mb-3" id="mydiv">
-    <div class="col-2 themed-grid-col" id="head">#</div>
-    <div class="col-6 themed-grid-col" id="head">Username</div>
-    <div class="col-4 themed-grid-col" id="head">Score</div> -->
+
     <div class="table-responsive tabl table-hover" style="border: none;">          
       <table class="table" style="background-color: #9B7564; color: white; font-size: 2em; border: none; text-align: center;">
         <thead>

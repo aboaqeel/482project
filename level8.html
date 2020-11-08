@@ -199,18 +199,18 @@ margin-left: 1%; */
         </div>
 
         <script type="text/javascript">
+            var paused = false;
             var minutesLabel = document.getElementById("minutes");
             var secondsLabel = document.getElementById("seconds");
-            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
-            setInterval(setTime, 1000);
-
+//            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+            var totalSeconds = 0 ;
+            var timer = setInterval(setTime, 1000);
             function setTime() {
                 ++totalSeconds;
                 secondsLabel.innerHTML = pad(totalSeconds % 60);
                 minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-                localStorage.setItem("time", totalSeconds);
+//                localStorage.setItem("time", totalSeconds);
             }
-
             function pad(val) {
                 var valString = val + "";
                 if (valString.length < 2) {
@@ -218,6 +218,22 @@ margin-left: 1%; */
                 } else {
                     return valString;
                 }
+            }
+            function pause() {
+                if (paused) {
+                    timer = setInterval(setTime, 1000);
+                    $(".timer").attr("src", "./icons/pause.svg");
+                    $(".piece").css("display", "block")
+                    $(".board").css("display", "block")
+                    $("#pause-nav").tooltip('hide').attr('data-original-title', 'Pause').tooltip('show');
+                } else {
+                    $(".piece").css("display", "none")
+                    $(".board").css("display", "none")
+                    clearInterval(timer);
+                    $(".timer").attr("src", "./icons/play.svg");
+                    $("#pause-nav").tooltip('hide').attr('data-original-title', 'Resume').tooltip('show');
+                }
+                paused = !paused;
             }
         </script>
 
@@ -228,9 +244,10 @@ margin-left: 1%; */
         <div id="win" style="padding-bottom: 10%;">
 
             <h3 style=" margin: 10%; font-weight:  700;">Congratulations!</h3>
-            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in<span id="time"> x </span>minuets!
+            <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in <span id="winingTime"></span>
+                <!-- minuets! -->
             </h5>
-            <h5 style="margin-bottom: 6%; font-weight: 600;">Your score is<span id="score"> y </span></h5>
+            <h5 style="margin-bottom: 6%; font-weight: 600;">Your score is <span id="score"></script> </span></h5>
 
             <div class="btn-group " style="display: block;">
                 <a href="./index.html"><button type="button" class="btns btn btn-outline-dark "><span>Main Menu</span></button></a>
@@ -242,7 +259,22 @@ margin-left: 1%; */
 
 
                     <a href="./level8.html"><button type="button" class="btns btn btn-outline-dark "><span>retry</span></button></a>
-                    <button type="button" class="btns btn btn-outline-dark"><img class="ic" src="./media/images/twitter.svg" /> share it on twitter </button>
+                    <script>
+                        // Opens a pop-up with twitter sharing dialog
+                        function tweet_score() {
+                            var shareURL = "http://twitter.com/share?"; //url base
+                            //params
+                            var params = {
+                                url: "http://hideandreveal-env.eba-rvpxu2dp.us-east-1.elasticbeanstalk.com/",
+                                text: "I just scored a " + $('#score').text() + " in " + $("#winingTime").text() + " on hideandreveal game!",
+                                hashtags: "hideandreveal"
+                            }
+                            for (var prop in params) shareURL += '&' + prop + '=' + encodeURIComponent(params[prop]);
+                            window.open(shareURL, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+                        }
+                    </script>
+
+            <button onclick="tweet_score()" type="button" id="twitter-share" class="btns btn btn-outline-dark "><span>share it on twitter!</span></button>
             </div>
         </div>
         <div class="d-flex icons" style="margin-bottom: 2.5%;height: 6vh;justify-content: space-around;">
