@@ -91,8 +91,17 @@ function win() {
         timeString = " seconds ";
         t = "";
     }
-    $("#winingTime").text(Math.trunc(minutes) + t + zero + Math.trunc(seconds) + timeString);
-    $("#score").text(Number((1000 - totalSeconds).toFixed(0)));
+    if(minutes >= 1){
+        $("#winingTime").text(Math.trunc(minutes) + t + zero + Math.trunc(seconds) + timeString);
+    }else{
+        $("#winingTime").text(t + zero + Math.trunc(seconds) + timeString);
+    }
+
+    if(totalSeconds < 1000){
+        $("#score").text(Number((1000 - totalSeconds).toFixed(0)));
+    }else{
+        $("#score").text(Number((10).toFixed(0)));
+    }
 
 }
 
