@@ -7,24 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- CSS only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script>
         let pos = [0, 3, 2, 1];
         let ang = [1, 2, 1, 1];
         let challenge = ["camel", "camel", "camel", "camel", "camel"];
     </script>
-    <script src="./js/sketch.js"></script>
-    <script>var levelWight = 1000;</script>
+    <script src="./js/game.js"></script>
+
     <style>
         html,
         body {
@@ -33,20 +28,20 @@
             background-color: #d8b38b;
             color: white;
         }
-
+        
         .container {
             width: min(100%, 61vh);
             height: 100%;
             padding: 0px;
         }
-
+        
         .board {
             position: relative;
             width: 50%;
             padding: 5px;
             /* background-color: #8F7962; */
         }
-
+        
         .piece {
             position: absolute;
             filter: drop-shadow(0 0 0.1em black);
@@ -56,11 +51,11 @@
             top: 0;
             left: 0;
         }
-
+        
         .active {
             filter: drop-shadow(0 0 2em #1d1914);
         }
-
+        
         .piece-place {
             background: #8f7962;
             position: relative;
@@ -70,25 +65,25 @@
             border-radius: 1.5em;
             margin-top: 2.5%;
         }
-
+        
         .icon {
             width: 15%;
         }
-
+        
         .flex-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
         }
-
+        
         svg {
             height: 4vh;
         }
-
+        
         .nav-item {
             padding: .5rem 1rem;
         }
-
+        
         .overlay {
             height: 100%;
             width: 0;
@@ -99,14 +94,14 @@
             background-color: rgba(0, 0, 0, 0.9);
             transition: 0.5s;
         }
-
+        
         #nav {
             margin-bottom: 2.5%;
             z-index: 4;
             position: relative;
             background-color: #8F7962;
         }
-
+        
         #win {
             display: none;
             position: fixed;
@@ -116,12 +111,12 @@
             z-index: 3;
             border-radius: 2em;
         }
-
+        
         #boardContainer {
             background-color: #8F7962;
             border-radius: 2.5%;
         }
-
+        
         .btns {
             background-color: #9B7564;
             margin-bottom: 2%;
@@ -131,15 +126,15 @@ margin-left: 1%; */
             color: white;
             width: 60%;
         }
-
+        
         .btns:hover {
             background-color: #403121
         }
-
+        
         .buttons {
             color: white;
         }
-
+        
         .ic {
             max-width: 10%;
             max-height: 10%
@@ -157,16 +152,14 @@ margin-left: 1%; */
                             d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z" />
                         <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
                     </svg></a></div>
-            <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="reset"><a href="#"
-                    onclick="reset()"><svg viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="#F2D0A7"
+            <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="reset"><a href="#" onclick="reset()"><svg viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="#F2D0A7"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
                         <path fill-rule="evenodd"
                             d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
                     </svg></a></div>
-            <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Change Level"><a
-                    href="./levels.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1892.57">
+            <div class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Change Level"><a href="./levels.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1892.57">
                         <defs>
                             <style>
                                 .cls-1 {
@@ -209,15 +202,17 @@ margin-left: 1%; */
             var paused = false;
             var minutesLabel = document.getElementById("minutes");
             var secondsLabel = document.getElementById("seconds");
-//            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
-            var totalSeconds = 0 ;
+            //            var totalSeconds = (localStorage.getItem("time") != undefined) ? localStorage.getItem("time") : 0;
+            var totalSeconds = 0;
             var timer = setInterval(setTime, 1000);
+
             function setTime() {
                 ++totalSeconds;
                 secondsLabel.innerHTML = pad(totalSeconds % 60);
                 minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-//                localStorage.setItem("time", totalSeconds);
+                //                localStorage.setItem("time", totalSeconds);
             }
+
             function pad(val) {
                 var valString = val + "";
                 if (valString.length < 2) {
@@ -226,6 +221,7 @@ margin-left: 1%; */
                     return valString;
                 }
             }
+
             function pause() {
                 if (paused) {
                     timer = setInterval(setTime, 1000);
@@ -252,7 +248,7 @@ margin-left: 1%; */
 
             <h3 style=" margin: 10%; font-weight:  700;">Congratulations!</h3>
             <h5 style=" margin: 3%; font-weight: 600;">You finished the challenge in <span id="winingTime"></span>
-                <!-- minuets! -->
+                <!-- minutes! -->
             </h5>
             <h5 style="margin-bottom: 6%; font-weight: 600;">Your score is <span id="score"></script> </span></h5>
 
@@ -267,20 +263,20 @@ margin-left: 1%; */
                     <a href="./level1.html"><button type="button"
                             class="btns btn btn-outline-dark "><span>retry</span></button></a> <br>
 
-                            <script>
-                                // Opens a pop-up with twitter sharing dialog
-                                function tweet_score() {
-                                    var shareURL = "http://twitter.com/share?"; //url base
-                                    //params
-                                    var params = {
-                                        url: "http://hideandreveal-env.eba-rvpxu2dp.us-east-1.elasticbeanstalk.com/",
-                                        text: "I just scored a " + $('#score').text() + " in " + $("#winingTime").text() + " on hideandreveal game!",
-                                        hashtags: "hideandreveal"
-                                    }
-                                    for (var prop in params) shareURL += '&' + prop + '=' + encodeURIComponent(params[prop]);
-                                    window.open(shareURL, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
-                                }
-                            </script>
+                    <script>
+                        // Opens a pop-up with twitter sharing dialog
+                        function tweet_score() {
+                            var shareURL = "http://twitter.com/share?"; //url base
+                            //params
+                            var params = {
+                                url: "http://hideandreveal-env.eba-rvpxu2dp.us-east-1.elasticbeanstalk.com/",
+                                text: "I just scored a " + $('#score').text() + " in " + $("#winingTime").text() + " on hideandreveal game!",
+                                hashtags: "hideandreveal"
+                            }
+                            for (var prop in params) shareURL += '&' + prop + '=' + encodeURIComponent(params[prop]);
+                            window.open(shareURL, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+                        }
+                    </script>
 
                     <button onclick="tweet_score()" type="button" id="twitter-share" class="btns btn btn-outline-dark "><span>share it on twitter!</span></button>
             </div>
@@ -310,7 +306,7 @@ margin-left: 1%; */
         </div>
 
     </div>
-    
+
 </body>
 
 </html>

@@ -3,20 +3,20 @@ let pieces = []
 var activePiece;
 
 
-$(document).ready(function () {
+$(document).ready(function() {
     // add method to set challenge icons from here, received from ejs
 
     pieces = $('.piece').toArray()
 
-    $('.piece').each(function () {
+    $('.piece').each(function() {
         $(this).data('angle', 0)
     })
     $('[data-toggle="tooltip"]').tooltip();
-    $(".board").click(function () {
+    $(".board").click(function() {
         $(activePiece).appendTo($(this));
         checkSolved();
     });
-    $(".piece").click(function () {
+    $(".piece").click(function() {
         if (activePiece == this) {
             $(this).data('angle', ($(this).data('angle') + 1) % 4)
             $(this).css({
@@ -28,7 +28,7 @@ $(document).ready(function () {
             activePiece = this;
         }
     });
-    $(".piece-place").click(function () {
+    $(".piece-place").click(function() {
         $(activePiece).appendTo($(this));
     });
     // setInterval(, 100)
@@ -71,31 +71,31 @@ function checkSolved() {
         /* turn the timer off */
     }
 }
+
 function win() {
     pause();
     var timeString = "";
     var t = "";
     var zero = "";
-    var minuets= (totalSeconds / 60);
-    var seconds=(totalSeconds % 60);
-    if(seconds<10 & minuets>=1){
-        zero=" 0";
+    var minutes = (totalSeconds / 60);
+    var seconds = (totalSeconds % 60);
+    if (seconds < 10 & minutes >= 1) {
+        zero = " 0";
+    } else {
+        zero = "";
     }
-    else{
-        zero="";
-    }
-    if (minuets >= 1){
-        timeString = " minuets ";
-        t=" : ";
-    }
-    else{
+    if (minutes >= 1) {
+        timeString = " minutes ";
+        t = " : ";
+    } else {
         timeString = " seconds ";
-        t="";
+        t = "";
     }
-    $("#winingTime").text(Math.trunc(minuets) + t + zero + Math.trunc(seconds) +timeString);
-    $("#score").text(Number((levelWight / totalSeconds).toFixed(2)));
+    $("#winingTime").text(Math.trunc(minutes) + t + zero + Math.trunc(seconds) + timeString);
+    $("#score").text(Number((1000 - totalSeconds).toFixed(0)));
 
 }
+
 function pad(val) {
     var valString = val + "";
     if (valString.length < 2) {
