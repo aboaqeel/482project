@@ -43,7 +43,7 @@ img {
 .popupcontainer {
     justify-content: center;
     z-index: 1;
-    background-color: hsl(31, 32%, 34%);
+    background-color: #8F7962;
     border-radius: 1.25em;
     padding-bottom: 3.90em;
     padding-top: 1.7em;
